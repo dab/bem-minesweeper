@@ -1,4 +1,6 @@
 .cell_state_open {
     background-color: #9C9C9C;
     text-indent: 0;
+    box-shadow: inset 0 1px 4px #333;
+    color: #ffffff;
 }

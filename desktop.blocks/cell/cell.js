@@ -17,7 +17,7 @@ modules.define('i-bem__dom', ['jquery'], function (provide, jquery, DOM) {
                         });
 
                         this.bindTo('contextmenu', function() {
-                            if (!this.hasMod('state', 'open')) this.setMod('state', 'maybe');
+                            if (!this.hasMod('state', 'open')) this.toggleMod('state', 'maybe', 'closed');
                             return false;
                         });
 
@@ -25,7 +25,7 @@ modules.define('i-bem__dom', ['jquery'], function (provide, jquery, DOM) {
                 },
                 'state':{
                     'mine': function(){
-                        console.log('BOOM! BIG BA-DA-BOOOOM!');
+                        console.log('BIG BA-DA-BOOOOM! BANG!');
                         this.findBlockOutside('grid').
                             setMod('state', 'gameover');
                     },
@@ -55,9 +55,7 @@ modules.define('i-bem__dom', ['jquery'], function (provide, jquery, DOM) {
                 }
                 return minesAround;
             }
-        },
-        {}
-    );
+        },{});
 
 
     provide(DOM);
