@@ -1,5 +1,7 @@
 # Minesweeper game on [BEM](http://bem.info)
 
+Demo link: [http://dab.github.io/minesweeper/](http://dab.github.io/minesweeper/)
+
 ---
 
 ## Installation Requirements:
@@ -12,7 +14,7 @@
 
 1. ›`git clone git://github.com/dab/bem-minesweeper.git`
 2. ›`cd bem-minesweeper`
-3. >`npm install`
+3. ›`npm install`
 4. ›`./node_modules/bem/bin/bem server`
 
 *(hint: execute the above commands in your terminal)*
