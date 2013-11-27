@@ -6,3 +6,12 @@
     color: #999;
     background: url('bem-logo_small.png') no-repeat left top;
 }
+
+.intro a {
+    color: #547ecb;
+}
+
+.intro a:hover {
+    color: #3abcff;
+    transition: 0.2s;
+}

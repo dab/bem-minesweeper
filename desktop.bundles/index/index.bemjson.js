@@ -1,10 +1,10 @@
 ({
     block: 'page',
-    title: 'Game of BEM',
+    title: 'BEM powered Minesweeper game.',
     favicon: '/favicon.ico',
     head: [
         { elem: 'css', url: '_index.css', ie: false },
-        { elem: 'meta', attrs: { name: 'description', content: '' }}
+        { elem: 'meta', attrs: { name: 'description', content: 'Minesweeper game, build with BEM on javascript.' }}
     ],
     content:[
         {
@@ -20,16 +20,13 @@
             content: [
                 {
                     elem: 'header',
-                    content: 'Minesweeper'
+                    content: 'bem-minesweeper'
                 },
                 {
                     elem: 'subheader',
-                    content: 'BEM powered'
+                    content: '\<a href="https://github.com/dab/bem-minesweeper"> on GitHub</a>'
                 }
             ]
-        },
-        {
-            block: 'gameover'
         },
         { elem: 'js', url: '_index.js' }
     ]
