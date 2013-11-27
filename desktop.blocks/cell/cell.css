@@ -1,0 +1,11 @@
+.cell {
+    box-sizing: border-box;
+    width: 30px;
+    height: 30px;
+    background-color: #547ecb;
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+    border-radius: 3px;
+}

@@ -1,0 +1,12 @@
+.grid_state_won {
+    background-color: #868D86;
+}
+.grid_state_won:before {
+    content: 'Ты нашел все мины! Ура!';
+    font-size: 18px;
+    font-weight: bold;
+    color: #2C91FF;
+    position: absolute;
+    top: 20px;
+    left: 60px;
+}

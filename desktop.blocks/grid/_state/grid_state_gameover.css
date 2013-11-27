@@ -1,0 +1,13 @@
+.grid_state_gameover {
+    background-color: #cd5c5c;
+}
+.grid_state_gameover:before {
+    color: #8b0000;
+    content: 'Ты подорвался. Увы.';
+    position: absolute;
+    top: 20px;
+    left: 60px;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Helvetica', sans-serif;
+}
