@@ -14,10 +14,6 @@ modules.define('i-bem__dom', ['BEMHTML'], function(provide, BEMHTML, DOM){
                     DOM.channel(CHANNEL_NAME).on(CHANNEL_EVENT_OPEN_AROUND, {}, function (e, cell) {
                         this._openCellsAround(cell.params.x, cell.params.y);
                     }, this);
-                },
-                '': function(){
-                    this.setMod('state', 'intro');
-                    this.grid = [];
                 }
             } ,
             'state': {
@@ -37,7 +33,6 @@ modules.define('i-bem__dom', ['BEMHTML'], function(provide, BEMHTML, DOM){
             this._buildGridOnDOM();
         },
         _buildGrid: function(){
-            console.log('filling empty grid...');
             for(var lines = 0; lines < this.params.height; ++lines){
                 this.grid[lines] = [];
                 for(var cols = 0; cols < this.params.width; ++cols){
@@ -48,10 +43,8 @@ modules.define('i-bem__dom', ['BEMHTML'], function(provide, BEMHTML, DOM){
                     };
                 }
             }
-            console.log('grid already bild:');
         },
         _addRandomMines: function(){
-            console.log('adding random mines');
             var minesPushed = 0;
             while (minesPushed < this.params.totalMines) {
                 var column = Math.floor(this.params.width * Math.random());
@@ -62,7 +55,6 @@ modules.define('i-bem__dom', ['BEMHTML'], function(provide, BEMHTML, DOM){
                     ++minesPushed;
                 }
             }
-            console.log('All mines pushed');
         },
         _buildGridOnDOM: function(){
 
@@ -109,10 +101,6 @@ modules.define('i-bem__dom', ['BEMHTML'], function(provide, BEMHTML, DOM){
                     }
                 }
             }
-        }  ,
-        _resetGame: function() {
-            this.setMod('js', '');
-            this.setMod('js', 'inited');
         }
 
     },{

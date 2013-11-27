@@ -25,7 +25,7 @@ modules.define('i-bem__dom', ['jquery'], function (provide, jquery, DOM) {
                 },
                 'state':{
                     'mine': function(){
-                        console.log('BIG BA-DA-BOOOOM! BANG!');
+                        console.log('BOOM! BIG BA-DA-BOOOOM!');
                         this.findBlockOutside('grid').
                             setMod('state', 'gameover');
                     },
@@ -55,12 +55,8 @@ modules.define('i-bem__dom', ['jquery'], function (provide, jquery, DOM) {
                 }
                 return minesAround;
             }
-
-            /* методы экземпляра */
         },
-        {
-            /* статические методы */
-        }
+        {}
     );
 
 
