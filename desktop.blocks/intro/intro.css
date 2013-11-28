@@ -9,9 +9,29 @@
 
 .intro a {
     color: #547ecb;
+    transition: all 0.2s;
 }
 
 .intro a:hover {
     color: #3abcff;
-    transition: 0.2s;
+    transition-delay: 0;
+}
+
+.intro__reset, .intro__cheat, .intro__name {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 3px 0;
+}
+
+.intro__reset, .intro__cheat {
+    border-radius: 3px;
+    background-color: #547ecb;
+    transition: all 0.2s;
+    color: white;
+    cursor: pointer;
+    padding: 3px;
+}
+
+.intro__reset:hover, .intro__cheat:hover {
+    background-color: #3abcff;
 }

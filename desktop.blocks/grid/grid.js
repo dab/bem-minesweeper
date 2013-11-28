@@ -1,12 +1,16 @@
-modules.define('i-bem__dom', ['BEMHTML'], function(provide, BEMHTML, DOM){
+modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML, DOM){
 
     var CHANNEL_NAME = 'cells';
     var CHANNEL_EVENT_OPEN_AROUND = 'around';
+    var CHANNEL_EVENT_RESET = 'reset';
+    var CHANNEL_EVENT_CHEAT = 'cheat';
 
     DOM.decl('grid',{
         onSetMod: {
             'js': {
                 'inited': function(){
+                    console.log('inited');
+                    this.setMod('reset', false);
                     this.setMod('state', 'gaming');
                     this.grid = [];
                     var cellsClosed = 0;
@@ -14,8 +18,11 @@ modules.define('i-bem__dom', ['BEMHTML'], function(provide, BEMHTML, DOM){
                     DOM.channel(CHANNEL_NAME).on(CHANNEL_EVENT_OPEN_AROUND, {}, function (e, cell) {
                         this._openCellsAround(cell.params.x, cell.params.y);
                     }, this);
+                    DOM.channel(CHANNEL_NAME).on(CHANNEL_EVENT_RESET, {}, function () {
+                        this.setMod('reset');
+                    }, this);
                 }
-            } ,
+            },
             'state': {
                 'gameover': function(){
                     var cells = this.findBlocksInside('cell');
@@ -24,6 +31,14 @@ modules.define('i-bem__dom', ['BEMHTML'], function(provide, BEMHTML, DOM){
                     });
                 }
 
+            },
+            'reset': {
+                true: function(){
+                    DOM.replace(this.domElem, BEMHTML.apply({
+                        block: 'grid',
+                        js: this.params
+                    }));
+                }
             }
         },
         _buildWorld: function(){
@@ -70,12 +85,13 @@ modules.define('i-bem__dom', ['BEMHTML'], function(provide, BEMHTML, DOM){
             var _this = this;
             this.elem('line').each(function (index) {
                 for (var columnNum = 0; columnNum < _this.params.width; ++columnNum) {
-                    var mine = (_this.grid[index][columnNum].mine) ? '+' : '&nbsp;' ;
+                    var mineTxt = (_this.grid[index][columnNum].mine) ? '+' : '&nbsp;' ;
+
                     DOM.append(
                         this,
                         BEMHTML.apply({
                             block: 'cell',
-                            content: mine,
+                            content: mineTxt,
                             js: {
                                 x: _this.grid[index][columnNum].x,
                                 y: _this.grid[index][columnNum].y,

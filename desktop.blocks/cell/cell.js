@@ -1,13 +1,18 @@
-modules.define('i-bem__dom', ['jquery'], function (provide, jquery, DOM) {
+modules.define(
+    'i-bem__dom',
+    ['jquery'],
+    function (provide, jquery, DOM) {
 
     var CHANNEL_NAME = 'cells';
     var CHANNEL_EVENT_OPEN_AROUND = 'around';
+    var CHANNEL_EVENT_CHEAT = 'cheat';
 
     DOM.decl('cell',
         {
             onSetMod: {
                 'js': {
                     'inited': function () {
+
                         this.setMod('state', 'closed');
 
                         this.bindTo('click', function() {
@@ -20,6 +25,10 @@ modules.define('i-bem__dom', ['jquery'], function (provide, jquery, DOM) {
                             if (!this.hasMod('state', 'open')) this.toggleMod('state', 'maybe', 'closed');
                             return false;
                         });
+
+                        DOM.channel(CHANNEL_NAME).on(CHANNEL_EVENT_CHEAT, {}, function () {
+                            this.toggleMod('state', 'closed');
+                        }, this);
 
                     }
                 },
@@ -35,10 +44,10 @@ modules.define('i-bem__dom', ['jquery'], function (provide, jquery, DOM) {
                         grid.cellsClosed--;
                         var minesNumber = this._countMinesAround();
                         if (minesNumber == 0) {
-                            DOM.channel(CHANNEL_NAME).trigger(CHANNEL_EVENT_OPEN_AROUND, {target: grid, params: this.params});
+                            DOM.channel(CHANNEL_NAME).trigger(CHANNEL_EVENT_OPEN_AROUND, { params: this.params });
                         } else this.domElem[0].textContent = minesNumber;
 
-                        if (grid.cellsClosed == grid.params.totalMines) grid.setMod('state', 'won');
+                        grid.cellsClosed == grid.params.totalMines && grid.setMod('state', 'won');
                     }
                 }
 
@@ -55,7 +64,8 @@ modules.define('i-bem__dom', ['jquery'], function (provide, jquery, DOM) {
                 }
                 return minesAround;
             }
-        },{});
+        },
+        {});
 
 
     provide(DOM);
