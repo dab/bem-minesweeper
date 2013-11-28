@@ -1,13 +1,19 @@
-modules.define('i-bem__dom', ['jquery'], function (provide, jquery, DOM) {
+modules.define(
+    'i-bem__dom',
+    ['jquery'],
+    function (provide, jquery, DOM) {
 
     var CHANNEL_NAME = 'cells';
-    var CHANNEL_EVENT_OPEN_AROUND = 'around';
+    var CHANNEL_EVENT_CHEAT = 'cheat';
 
     DOM.decl('cell',
         {
             onSetMod: {
                 'js': {
                     'inited': function () {
+
+                        var params = this.params;
+
                         this.setMod('state', 'closed');
 
                         this.bindTo('click', function() {
@@ -21,6 +27,11 @@ modules.define('i-bem__dom', ['jquery'], function (provide, jquery, DOM) {
                             return false;
                         });
 
+                        DOM.channel(CHANNEL_NAME).on(CHANNEL_EVENT_CHEAT, {}, function () {
+                            this.toggleMod('state', 'closed');
+                            this.toggleMod('cheat');
+                        }, this);
+
                     }
                 },
                 'state':{
@@ -30,15 +41,14 @@ modules.define('i-bem__dom', ['jquery'], function (provide, jquery, DOM) {
                             setMod('state', 'gameover');
                     },
                     'open': function(){
-                        // надо посчитать мины вокруг, если ноль - открыть все ячейки вокруг
                         var grid = this.findBlockOutside('grid');
                         grid.cellsClosed--;
                         var minesNumber = this._countMinesAround();
-                        if (minesNumber == 0) {
-                            DOM.channel(CHANNEL_NAME).trigger(CHANNEL_EVENT_OPEN_AROUND, {target: grid, params: this.params});
+                        if (minesNumber === 0) {
+                            this._openCellsAround(this.params);
                         } else this.domElem[0].textContent = minesNumber;
 
-                        if (grid.cellsClosed == grid.params.totalMines) grid.setMod('state', 'won');
+                        grid.cellsClosed === grid.params.totalMines && grid.setMod('state', 'won');
                     }
                 }
 
@@ -54,8 +64,26 @@ modules.define('i-bem__dom', ['jquery'], function (provide, jquery, DOM) {
                     }
                 }
                 return minesAround;
+            },
+            _openCellsAround: function(params){
+                var parent = this.findBlockOutside('grid');
+                var grid = parent.grid;
+                for(var dy = -1; dy < 2; ++dy){
+                    var line = params.y + dy;
+                    for(var dx = -1; dx < 2; ++dx) {
+                        var column = params.x + dx;
+                        if (grid[line] && grid[line][column]) {
+                            parent.findBlocksInside('cell').forEach(function(currentCell) {
+                                if ((currentCell.params.x === column) && (currentCell.params.y === line)) {
+                                    currentCell.setMod('state', 'open');
+                                }
+                            });
+                        }
+                    }
+                }
             }
-        },{});
+        },
+        {});
 
 
     provide(DOM);

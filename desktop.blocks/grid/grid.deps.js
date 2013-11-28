@@ -14,6 +14,9 @@
         tech: 'js',
         mustDeps: [
             { block: 'i-bem', tech: 'bemhtml' }
+        ],
+        shouldDeps: [
+            { block: 'grid', tech: 'bemhtml' }
         ]
     }
 

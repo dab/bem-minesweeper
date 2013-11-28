@@ -20,7 +20,11 @@
             content: [
                 {
                     elem: 'header',
-                    content: 'bem-minesweeper'
+                    content: [
+                        { elem: 'name', content: 'minesweeper' },
+                        { elem: 'reset', content: 'reset'  },
+                        { elem: 'cheat', content: 'cheat game' }
+                    ]
                 },
                 {
                     elem: 'subheader',
