@@ -23,6 +23,10 @@
     padding: 3px 0;
 }
 
+.intro__name {
+    margin-right: 20px;
+}
+
 .intro__reset, .intro__cheat {
     border-radius: 3px;
     background-color: #547ecb;
@@ -31,7 +35,13 @@
     cursor: pointer;
     padding: 3px;
 }
-
+.intro__cheat {
+    background-color: #eee;
+}
 .intro__reset:hover, .intro__cheat:hover {
     background-color: #3abcff;
+}
+
+.intro.intro_cheat .intro__cheat {
+    background-color: #6f41ff;
 }

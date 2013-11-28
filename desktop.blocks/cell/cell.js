@@ -4,7 +4,6 @@ modules.define(
     function (provide, jquery, DOM) {
 
     var CHANNEL_NAME = 'cells';
-    var CHANNEL_EVENT_OPEN_AROUND = 'around';
     var CHANNEL_EVENT_CHEAT = 'cheat';
 
     DOM.decl('cell',
@@ -12,6 +11,8 @@ modules.define(
             onSetMod: {
                 'js': {
                     'inited': function () {
+
+                        var params = this.params;
 
                         this.setMod('state', 'closed');
 
@@ -28,6 +29,7 @@ modules.define(
 
                         DOM.channel(CHANNEL_NAME).on(CHANNEL_EVENT_CHEAT, {}, function () {
                             this.toggleMod('state', 'closed');
+                            this.toggleMod('cheat');
                         }, this);
 
                     }
@@ -39,15 +41,14 @@ modules.define(
                             setMod('state', 'gameover');
                     },
                     'open': function(){
-                        // надо посчитать мины вокруг, если ноль - открыть все ячейки вокруг
                         var grid = this.findBlockOutside('grid');
                         grid.cellsClosed--;
                         var minesNumber = this._countMinesAround();
-                        if (minesNumber == 0) {
-                            DOM.channel(CHANNEL_NAME).trigger(CHANNEL_EVENT_OPEN_AROUND, { params: this.params });
+                        if (minesNumber === 0) {
+                            this._openCellsAround(this.params);
                         } else this.domElem[0].textContent = minesNumber;
 
-                        grid.cellsClosed == grid.params.totalMines && grid.setMod('state', 'won');
+                        grid.cellsClosed === grid.params.totalMines && grid.setMod('state', 'won');
                     }
                 }
 
@@ -63,6 +64,23 @@ modules.define(
                     }
                 }
                 return minesAround;
+            },
+            _openCellsAround: function(params){
+                var parent = this.findBlockOutside('grid');
+                var grid = parent.grid;
+                for(var dy = -1; dy < 2; ++dy){
+                    var line = params.y + dy;
+                    for(var dx = -1; dx < 2; ++dx) {
+                        var column = params.x + dx;
+                        if (grid[line] && grid[line][column]) {
+                            parent.findBlocksInside('cell').forEach(function(currentCell) {
+                                if ((currentCell.params.x === column) && (currentCell.params.y === line)) {
+                                    currentCell.setMod('state', 'open');
+                                }
+                            });
+                        }
+                    }
+                }
             }
         },
         {});

@@ -11,19 +11,18 @@ modules.define('i-bem__dom', ['jquery'], function(provide, $, DOM) {
                     'inited': function() {
 
                         this.bindTo('reset', 'click', function(e) {
+                            this.delMod('cheat');
                             DOM.channel(CHANNEL_NAME).trigger(CHANNEL_EVENT_RESET);
                         });
 
+                        var _this = this;
                         this.bindTo('cheat', 'click', function(e) {
+                            this.toggleMod('cheat');
                             DOM.channel(CHANNEL_NAME).trigger(CHANNEL_EVENT_CHEAT);
-
                         });
 
                     }
                 }
-            },
-            onElemSetMod: {
-
             }
         },
         {

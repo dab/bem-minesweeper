@@ -30,7 +30,6 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML
                         if (cell.params.mine) cell.setMod('state', 'mine');
                     });
                 }
-
             },
             'reset': {
                 true: function(){
@@ -102,23 +101,7 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML
                 }
 
             });
-        },
-        _openCellsAround: function(x, y){
-            var grid = this.grid;
-            for(var dy = -1; dy < 2; ++dy){
-                for( var dx = -1; dx < 2; ++dx){
-                    var line = y + dy;
-                    var column = x + dx;
-                    if (grid[line] && grid[line][column]) {
-                        var cells = this.findBlocksInside('cell');
-                        cells.forEach(function(cell){
-                            if ((cell.params.x == column) && (cell.params.y == line)) cell.setMod('state', 'open');
-                        });
-                    }
-                }
-            }
         }
-
     },{
 
     });
