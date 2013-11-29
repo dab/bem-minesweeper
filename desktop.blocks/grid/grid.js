@@ -26,7 +26,7 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML
                 'gameover': function(){
                     var cells = this.findBlocksInside('cell');
                     cells.forEach(function(cell){
-                        if (cell.params.mine) cell.setMod('state', 'mine');
+                        cell.params.mine && cell.setMod('state', 'mine');
                     });
                 }
             },
@@ -83,17 +83,15 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML
             var _this = this;
             this.elem('line').each(function (index) {
                 for (var columnNum = 0; columnNum < _this.params.width; ++columnNum) {
-                    var mineTxt = (_this.grid[index][columnNum].mine) ? '+' : '&nbsp;' ;
-
+                    var currentCell = _this.grid[index][columnNum];
                     DOM.append(
                         this,
                         BEMHTML.apply({
                             block: 'cell',
-                            content: mineTxt,
                             js: {
-                                x: _this.grid[index][columnNum].x,
-                                y: _this.grid[index][columnNum].y,
-                                mine: _this.grid[index][columnNum].mine
+                                x: currentCell.x,
+                                y: currentCell.y,
+                                mine: currentCell.mine
                             }
                         })
                     )
