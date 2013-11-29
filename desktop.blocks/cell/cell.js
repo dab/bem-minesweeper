@@ -68,6 +68,7 @@ modules.define(
                             parent.findBlocksInside('cell').forEach(function(currentCell) {
                                 if ((currentCell.params.x === column) && (currentCell.params.y === line)) {
                                     currentCell.setMod('state', 'open');
+                                    return;
                                 }
                             });
                         }
