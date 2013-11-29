@@ -3,9 +3,6 @@ modules.define(
     ['jquery'],
     function (provide, jquery, DOM) {
 
-    var CHANNEL_NAME = 'cells';
-    var CHANNEL_EVENT_CHEAT = 'cheat';
-
     DOM.decl('cell',
         {
             onSetMod: {
@@ -27,10 +24,7 @@ modules.define(
                             return false;
                         });
 
-                        DOM.channel(CHANNEL_NAME).on(CHANNEL_EVENT_CHEAT, {}, function () {
-                            this.toggleMod('state', 'closed');
-                            this.toggleMod('cheat');
-                        }, this);
+                        this.params.mine && this.setMod('che');
 
                     }
                 },

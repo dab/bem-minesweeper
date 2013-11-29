@@ -1,7 +1,6 @@
 modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML, DOM){
 
     var CHANNEL_NAME = 'cells';
-    var CHANNEL_EVENT_OPEN_AROUND = 'around';
     var CHANNEL_EVENT_RESET = 'reset';
     var CHANNEL_EVENT_CHEAT = 'cheat';
 
@@ -9,17 +8,17 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML
         onSetMod: {
             'js': {
                 'inited': function(){
-                    console.log('inited');
                     this.setMod('reset', false);
                     this.setMod('state', 'gaming');
                     this.grid = [];
                     var cellsClosed = 0;
                     this._buildWorld();
-                    DOM.channel(CHANNEL_NAME).on(CHANNEL_EVENT_OPEN_AROUND, {}, function (e, cell) {
-                        this._openCellsAround(cell.params.x, cell.params.y);
-                    }, this);
                     DOM.channel(CHANNEL_NAME).on(CHANNEL_EVENT_RESET, {}, function () {
                         this.setMod('reset');
+                    }, this);
+
+                    DOM.channel(CHANNEL_NAME).on(CHANNEL_EVENT_CHEAT, {}, function () {
+                        this.toggleMod('cheat');
                     }, this);
                 }
             },

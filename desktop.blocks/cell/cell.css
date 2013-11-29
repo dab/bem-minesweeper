@@ -2,7 +2,8 @@
     box-sizing: border-box;
     width: 30px;
     height: 30px;
-    background-color: #547ecb;
+    background-color: #3abcff;
+    color: white;
     display: inline-block;
     margin: 5px;
     padding: 5px;
@@ -11,4 +12,8 @@
     font-size: 14px;
     line-height: 21px;
     font-weight: bold;
+}
+
+.grid_cheat .cell_che {
+    background-color: #3abcff;
 }
