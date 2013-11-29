@@ -3,6 +3,7 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML
     var CHANNEL_NAME = 'cells';
     var CHANNEL_EVENT_RESET = 'reset';
     var CHANNEL_EVENT_CHEAT = 'cheat';
+    var CHANNEL_EVENT_VALIDATE = 'validate';
 
     DOM.decl('grid',{
         onSetMod: {
@@ -13,12 +14,21 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML
                     this.grid = [];
                     var cellsClosed = 0;
                     this._buildWorld();
+
                     DOM.channel(CHANNEL_NAME).on(CHANNEL_EVENT_RESET, {}, function () {
                         this.setMod('reset');
                     }, this);
 
                     DOM.channel(CHANNEL_NAME).on(CHANNEL_EVENT_CHEAT, {}, function () {
                         this.toggleMod('cheat');
+                    }, this);
+
+                    DOM.channel(CHANNEL_NAME).on(CHANNEL_EVENT_VALIDATE, {}, function () {
+                        var markedCorrectMines = 0;
+                        this.findBlocksInside('cell').forEach(function(cell){
+                            if ((cell.hasMod('state', 'maybe')) && cell.params.mine ) markedCorrectMines++;
+                        });
+                        if ((markedCorrectMines === this.params.totalMines) ) this.setMod('state', 'won');
                     }, this);
                 }
             },

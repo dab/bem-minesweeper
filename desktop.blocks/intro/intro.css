@@ -4,7 +4,7 @@
     padding: 5px 40px;
     font-size: 12px;
     color: #999;
-    background: url('bem-logo_small.png') no-repeat left top;
+    background: url('bem-logo_small.png') no-repeat left bottom;
 }
 
 .intro a {
@@ -17,7 +17,7 @@
     transition-delay: 0;
 }
 
-.intro__reset, .intro__cheat, .intro__name {
+.intro__reset, .intro__validate, .intro__cheat, .intro__name {
     display: inline-block;
     margin-right: 5px;
     padding: 3px 0;
@@ -27,7 +27,7 @@
     margin-right: 20px;
 }
 
-.intro__reset, .intro__cheat {
+.intro__reset, .intro__cheat, .intro__validate {
     border-radius: 3px;
     background-color: #547ecb;
     transition: all 0.2s;
@@ -38,7 +38,7 @@
 .intro__cheat {
     background-color: #eee;
 }
-.intro__reset:hover, .intro__cheat:hover {
+.intro__reset:hover, .intro__cheat:hover, .intro__validate:hover {
     background-color: #3abcff;
 }
 

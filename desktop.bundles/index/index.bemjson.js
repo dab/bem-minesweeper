@@ -18,12 +18,13 @@
         {
             block: 'intro',
             content: [
+                { elem: 'reset', content: 'reset'  },
+                { elem: 'validate', content: 'validate'  },
+                { elem: 'cheat', content: 'cheat game' },
                 {
                     elem: 'header',
                     content: [
-                        { elem: 'name', content: 'minesweeper' },
-                        { elem: 'reset', content: 'reset'  },
-                        { elem: 'cheat', content: 'cheat game' }
+                        { elem: 'name', content: 'minesweeper' }
                     ]
                 },
                 {
