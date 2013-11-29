@@ -88,6 +88,7 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML
                         this,
                         BEMHTML.apply({
                             block: 'cell',
+                            content: '&nbsp;',
                             js: {
                                 x: currentCell.x,
                                 y: currentCell.y,
