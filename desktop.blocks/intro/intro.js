@@ -12,7 +12,6 @@ modules.define('i-bem__dom', ['jquery'], function(provide, $, DOM) {
                     'inited': function() {
 
                         this.bindTo('reset', 'click', function() {
-                            this.delMod('cheat');
                             DOM.channel(CHANNEL_NAME).trigger(CHANNEL_EVENT_RESET);
                         });
 

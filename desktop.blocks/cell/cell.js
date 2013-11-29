@@ -9,8 +9,6 @@ modules.define(
                 'js': {
                     'inited': function () {
 
-                        var params = this.params;
-
                         this.setMod('state', 'closed');
 
                         this.bindTo('click', function() {
@@ -51,8 +49,8 @@ modules.define(
                 var grid = this.findBlockOutside('grid').grid;
                 var minesAround = 0;
                 for(var dy = -1; dy < 2; ++dy){
+                    var line = this.params.y + dy;
                     for(var dx = -1; dx < 2; ++dx){
-                        var line = this.params.y + dy;
                         var column = this.params.x + dx;
                         if (grid[line] && grid[line][column] && grid[line][column].mine) minesAround++;
                     }

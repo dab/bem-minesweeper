@@ -42,9 +42,11 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML
             },
             'reset': {
                 true: function(){
+                    var cheatReady =  (this.hasMod('cheat')) ? true : false;
                     DOM.replace(this.domElem, BEMHTML.apply({
                         block: 'grid',
-                        js: this.params
+                        js: this.params,
+                        mods: { cheat: cheatReady }
                     }));
                 }
             }
