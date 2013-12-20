@@ -3,7 +3,7 @@
     title: 'BEM powered Minesweeper game.',
     favicon: '/favicon.ico',
     head: [
-        { elem: 'css', url: '_index.css', ie: false },
+        { elem: 'css', url: '_index.css' },
         { elem: 'meta', attrs: { name: 'description', content: 'Minesweeper game, build with BEM on javascript.' }}
     ],
     content:[
