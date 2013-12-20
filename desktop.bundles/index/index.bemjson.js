@@ -29,7 +29,11 @@
                 },
                 {
                     elem: 'subheader',
-                    content: '\<a href="https://github.com/dab/bem-minesweeper"> on GitHub</a>'
+                    content: {
+                        block: 'link',
+                        url: 'https://github.com/dab/bem-minesweeper',
+                        content: 'on GitHub'
+                    }
                 }
             ]
         },
