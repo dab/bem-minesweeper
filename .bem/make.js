@@ -13,8 +13,8 @@ MAKE.decl('Arch', {
     bundlesLevelsRegexp: /^.+?\.bundles$/,
 
     libraries: [
-        'bem-core @ f4b46ef0590549042d938f7e981df4d14eb4caef',
-        'bem-components @ 82301a8af6c15c2849d1f755a24f594de6522251'
+        'bem-core @ 88504c39a4317f30a1d360e0e14777a07ef6fa0d',
+        'bem-components @ d86912476acfef642fe4790712a25ddb71a6f5e5'
     ]
 
 });
@@ -31,7 +31,6 @@ MAKE.decl('BundleNode', {
             'bemhtml',
             'browser.js+bemhtml',
             'css',
-            'ie.css',
             'html'
         ];
 

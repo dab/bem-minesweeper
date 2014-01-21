@@ -3,7 +3,7 @@
     title: 'BEM powered Minesweeper game.',
     favicon: '/favicon.ico',
     head: [
-        { elem: 'css', url: '_index.css', ie: false },
+        { elem: 'css', url: '_index.css' },
         { elem: 'meta', attrs: { name: 'description', content: 'Minesweeper game, build with BEM on javascript.' }}
     ],
     content:[
@@ -29,7 +29,11 @@
                 },
                 {
                     elem: 'subheader',
-                    content: '\<a href="https://github.com/dab/bem-minesweeper"> on GitHub</a>'
+                    content: {
+                        block: 'link',
+                        url: 'https://github.com/dab/bem-minesweeper',
+                        content: 'on GitHub'
+                    }
                 }
             ]
         },
