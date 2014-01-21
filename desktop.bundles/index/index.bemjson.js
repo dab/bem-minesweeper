@@ -16,7 +16,7 @@
             }
         },
         {
-            block: 'intro',
+            block: 'menu',
             content: [
                 { elem: 'reset', content: 'reset'  },
                 { elem: 'validate', content: 'validate'  },

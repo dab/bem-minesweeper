@@ -9,55 +9,57 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML
         onSetMod: {
             'js': {
                 'inited': function(){
-                    this.setMod('reset', false);
+                    this.delMod('reset');
                     this.setMod('state', 'gaming');
                     this.grid = [];
                     var cellsClosed = 0;
-                    this._buildWorld();
+                    this.buildWorld();
 
-                    DOM.channel(CHANNEL_NAME).on(CHANNEL_EVENT_RESET, {}, function () {
-                        this.setMod('reset');
-                    }, this);
+                    this.cells = DOM.blocks.cell;
+                    var channel = DOM.channel(CHANNEL_NAME);
 
-                    DOM.channel(CHANNEL_NAME).on(CHANNEL_EVENT_CHEAT, {}, function () {
-                        this.toggleMod('cheat');
-                    }, this);
+                channel.on(CHANNEL_EVENT_RESET, {}, function () {
+                    this.setMod('reset');
+                }, this);
 
-                    DOM.channel(CHANNEL_NAME).on(CHANNEL_EVENT_VALIDATE, {}, function () {
-                        var markedCorrectMines = 0;
-                        this.findBlocksInside('cell').forEach(function(cell){
-                            if ((cell.hasMod('state', 'maybe')) && cell.params.mine ) markedCorrectMines++;
-                        });
-                        if ((markedCorrectMines === this.params.totalMines) ) this.setMod('state', 'won');
-                    }, this);
-                }
-            },
-            'state': {
-                'gameover': function(){
-                    var cells = this.findBlocksInside('cell');
-                    cells.forEach(function(cell){
-                        cell.params.mine && cell.setMod('state', 'mine');
+                channel.on(CHANNEL_EVENT_CHEAT, {}, function () {
+                    this.toggleMod('cheat');
+                }, this);
+
+                channel.on(CHANNEL_EVENT_VALIDATE, {}, function () {
+                    var markedCorrectMines = 0;
+                    this.cells.forEach(function(cell){
+                        if ((cell.hasMod('state', 'maybe')) && cell.params.mine ) markedCorrectMines++;
                     });
+                    if ((markedCorrectMines === this.params.totalMines) ) this.setMod('state', 'won');
+                }, this);
                 }
             },
-            'reset': {
-                true: function(){
-                    var cheatReady =  (this.hasMod('cheat')) ? true : false;
-                    DOM.replace(this.domElem, BEMHTML.apply({
-                        block: 'grid',
-                        js: this.params,
-                        mods: { cheat: cheatReady }
-                    }));
-                }
-            }
+'state': {
+    'gameover': function(){
+        this.cells.forEach(function(cell){
+            cell.params.mine && cell.setMod('state', 'mine');
+        });
+    }
+},
+'reset': {
+    true: function(){
+        var cheatReady =  (this.hasMod('cheat')) ? true : false;
+        DOM.replace(this.domElem, BEMHTML.apply({
+            block: 'grid',
+            js: this.params,
+            mods: { cheat: cheatReady }
+        }));
+    }
+}
         },
-        _buildWorld: function(){
+        buildWorld: function(){
             this.cellsClosed = this.params.width * this.params.height;
-            this._buildGrid();
-            this._addRandomMines();
-            this._buildGridOnDOM();
+            this.buildGrid();
+            this.addRandomMines();
+            this.buildGridOnDOM();
         },
-        _buildGrid: function(){
+        buildGrid: function(){
             for(var lines = 0; lines < this.params.height; ++lines){
                 this.grid[lines] = [];
                 for(var cols = 0; cols < this.params.width; ++cols){
@@ -69,7 +71,7 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML
                 }
             }
         },
-        _addRandomMines: function(){
+        addRandomMines: function(){
             var minesPushed = 0;
             while (minesPushed < this.params.totalMines) {
                 var column = Math.floor(this.params.width * Math.random());
@@ -81,7 +83,7 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML
                 }
             }
         },
-        _buildGridOnDOM: function(){
+        buildGridOnDOM: function(){
 
             for(var lineNum = 0; lineNum < this.params.height; ++lineNum){
                 DOM.append(this.domElem, BEMHTML.apply({
