@@ -13,12 +13,12 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML
                         .setMod('state', 'gaming');
 
                     this.grid = [];
-                    var cellsClosed = 0;
-
                     this.buildWorld();
 
-                    this.cells = DOM.blocks.cell;
                     var channel = DOM.channel(CHANNEL_NAME);
+                    var cellsClosed = 0;
+
+                    this.cells = DOM.blocks.cell;
 
                     channel.on(CHANNEL_EVENT_RESET, {}, function () {
                         this.setMod('reset');
@@ -86,15 +86,12 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML
             }
         },
         buildGridOnDOM: function(){
-
             for(var lineNum = 0; lineNum < this.params.height; ++lineNum){
                 DOM.append(this.domElem, BEMHTML.apply({
                     block: 'grid',
                     elem: 'line'
                 }));
             }
-
-
             // filling lines with boxes
             var _this = this;
             this.elem('line').each(function (index) {
