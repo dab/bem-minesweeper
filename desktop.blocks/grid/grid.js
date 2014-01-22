@@ -9,49 +9,51 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML
         onSetMod: {
             'js': {
                 'inited': function(){
-                    this.delMod('reset');
-                    this.setMod('state', 'gaming');
+                    this.delMod('reset')
+                        .setMod('state', 'gaming');
+
                     this.grid = [];
                     var cellsClosed = 0;
+
                     this.buildWorld();
 
                     this.cells = DOM.blocks.cell;
                     var channel = DOM.channel(CHANNEL_NAME);
 
-                channel.on(CHANNEL_EVENT_RESET, {}, function () {
-                    this.setMod('reset');
-                }, this);
+                    channel.on(CHANNEL_EVENT_RESET, {}, function () {
+                        this.setMod('reset');
+                    }, this);
 
-                channel.on(CHANNEL_EVENT_CHEAT, {}, function () {
-                    this.toggleMod('cheat');
-                }, this);
+                    channel.on(CHANNEL_EVENT_CHEAT, {}, function () {
+                        this.toggleMod('cheat');
+                    }, this);
 
-                channel.on(CHANNEL_EVENT_VALIDATE, {}, function () {
-                    var markedCorrectMines = 0;
-                    this.cells.forEach(function(cell){
-                        if ((cell.hasMod('state', 'maybe')) && cell.params.mine ) markedCorrectMines++;
-                    });
-                    if ((markedCorrectMines === this.params.totalMines) ) this.setMod('state', 'won');
-                }, this);
+                    channel.on(CHANNEL_EVENT_VALIDATE, {}, function () {
+                        var markedCorrectMines = 0;
+                        this.cells.forEach(function(cell){
+                            if ((cell.hasMod('state', 'maybe')) && cell.params.mine ) markedCorrectMines++;
+                        });
+                        if ((markedCorrectMines === this.params.totalMines) ) this.setMod('state', 'won');
+                    }, this);
                 }
             },
-'state': {
-    'gameover': function(){
-        this.cells.forEach(function(cell){
-            cell.params.mine && cell.setMod('state', 'mine');
-        });
-    }
-},
-'reset': {
-    true: function(){
-        var cheatReady =  (this.hasMod('cheat')) ? true : false;
-        DOM.replace(this.domElem, BEMHTML.apply({
-            block: 'grid',
-            js: this.params,
-            mods: { cheat: cheatReady }
-        }));
-    }
-}
+            'state': {
+                'gameover': function(){
+                    this.cells.forEach(function(cell){
+                        cell.params.mine && cell.setMod('state', 'mine');
+                    });
+                }
+            },
+            'reset': {
+                true: function(){
+                    var cheatReady =  (this.hasMod('cheat')) ? true : false;
+                    DOM.replace(this.domElem, BEMHTML.apply({
+                        block: 'grid',
+                        js: this.params,
+                        mods: { cheat: cheatReady }
+                    }));
+                }
+            }
         },
         buildWorld: function(){
             this.cellsClosed = this.params.width * this.params.height;
@@ -102,7 +104,6 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML
                         this,
                         BEMHTML.apply({
                             block: 'cell',
-                            content: '&nbsp;',
                             js: {
                                 x: currentCell.x,
                                 y: currentCell.y,

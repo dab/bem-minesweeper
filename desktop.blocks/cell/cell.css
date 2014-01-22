@@ -1,16 +1,14 @@
 .cell {
     box-sizing: border-box;
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     background-color: #3abcff;
     color: white;
-    display: inline-block;
-    margin: 5px;
-    padding: 5px;
+    margin: 3px;
     text-align: center;
     border-radius: 3px;
-    font-size: 12px;
-    line-height: 21px;
+    font-size: 10px;
+    line-height: 20px;
     font-weight: bold;
 }
 

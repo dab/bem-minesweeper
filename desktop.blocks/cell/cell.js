@@ -57,13 +57,14 @@ modules.define('i-bem__dom', ['jquery'], function (provide, jquery, DOM) {
             },
             openCellsAround: function(params){
                 var parent = this.findBlockOutside('grid');
+                var cells = parent.findBlocksInside('cell');
                 var grid = parent.grid;
                 for(var dy = -1; dy < 2; ++dy){
                     var line = params.y + dy;
                     for(var dx = -1; dx < 2; ++dx) {
                         var column = params.x + dx;
                         if (grid[line] && grid[line][column]) {
-                            parent.findBlocksInside('cell').forEach(function(currentCell) {
+                            cells.forEach(function(currentCell) {
                                 if ((currentCell.params.x === column) && (currentCell.params.y === line)) {
                                     currentCell.setMod('state', 'open');
                                     return;

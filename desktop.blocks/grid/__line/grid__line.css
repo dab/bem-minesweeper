@@ -1,3 +1,4 @@
 .grid__line {
-    display: block;
+    display: flex;
+    flex-wrap: nowrap;
 }

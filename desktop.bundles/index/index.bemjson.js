@@ -10,9 +10,9 @@
         {
             block: 'grid',
             js: {
-                width: 8,
-                height: 8,
-                totalMines: 10
+                width: 16,
+                height: 16,
+                totalMines: 40
             }
         },
         {
