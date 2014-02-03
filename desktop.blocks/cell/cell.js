@@ -6,8 +6,6 @@ modules.define('i-bem__dom', ['jquery'], function (provide, jquery, DOM) {
                 'js': {
                     'inited': function () {
 
-                        this.setMod('state', 'closed');
-
                         this.bindTo('click', function() {
                             if(this.params.mine) {
                                 this.setMod('state', 'mine');

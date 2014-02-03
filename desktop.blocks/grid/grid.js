@@ -21,7 +21,7 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML
                     this.cells = DOM.blocks.cell;
 
                     channel.on(CHANNEL_EVENT_RESET, {}, function () {
-                        this.setMod('reset');
+                        this.resetGrid();
                     }, this);
 
                     channel.on(CHANNEL_EVENT_CHEAT, {}, function () {
@@ -44,16 +44,7 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML
                     });
                 }
             },
-            'reset': {
-                true: function(){
-                    var cheatReady =  (this.hasMod('cheat')) ? true : false;
-                    DOM.replace(this.domElem, BEMHTML.apply({
-                        block: 'grid',
-                        js: this.params,
-                        mods: { cheat: cheatReady }
-                    }));
-                }
-            }
+
         },
         buildWorld: function(){
             this.cellsClosed = this.params.width * this.params.height;
@@ -86,32 +77,51 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML'], function(provide, $, BEMHTML
             }
         },
         buildGridOnDOM: function(){
+            var gameField = [];
+                //DOM.append(this.domElem, BEMHTML.apply({
+                    //block: 'grid',
+                    //elem: 'line'
+                //}));
             for(var lineNum = 0; lineNum < this.params.height; ++lineNum){
-                DOM.append(this.domElem, BEMHTML.apply({
+                gameField.push({
                     block: 'grid',
                     elem: 'line'
-                }));
+                })
             }
             // filling lines with boxes
-            var _this = this;
-            this.elem('line').each(function (index) {
+            var _this = this, 
+                index = 0;
+            gameField.forEach(function (line) {
+                line.content = [];
                 for (var columnNum = 0; columnNum < _this.params.width; ++columnNum) {
                     var currentCell = _this.grid[index][columnNum];
-                    DOM.append(
-                        this,
-                        BEMHTML.apply({
+                    line.content.push({
                             block: 'cell',
+                            mods: {state: 'closed'},
                             js: {
                                 x: currentCell.x,
                                 y: currentCell.y,
                                 mine: currentCell.mine
                             }
-                        })
-                    )
+                    });
                 }
 
+                index++;
             });
-        }
+            // appending our gameField object to DOM
+            DOM.append(
+                this.domElem,
+                BEMHTML.apply(gameField)
+            );
+        },
+        resetGrid: function() {
+                var isCheatReady =  this.hasMod('cheat');
+                DOM.replace(this.domElem, BEMHTML.apply({
+                    block: 'grid',
+                    js: this.params,
+                    mods: { cheat: isCheatReady }
+                }));
+            }
     },{
 
     });

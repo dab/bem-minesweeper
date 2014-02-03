@@ -1,4 +1,4 @@
-modules.define('i-bem__dom', ['jquery'], function(provide, $, DOM) {
+modules.define('i-bem__dom', ['events__channels'], function(provide, channels, DOM) {
 
     var CHANNEL_NAME = 'cells';
     var CHANNEL_EVENT_RESET = 'reset';
@@ -11,7 +11,7 @@ DOM.decl('menu',
             'js' : {
                 'inited': function() {
 
-                    var channel = DOM.channel(CHANNEL_NAME);
+                    var channel = channels(CHANNEL_NAME);
 
                     this.bindTo('reset', 'click', function() {
                         channel.trigger(CHANNEL_EVENT_RESET);
@@ -28,11 +28,7 @@ DOM.decl('menu',
                 }
             }
         }
-        },
-        {
-            /* статические методы */
-        }
-    );
+        });
 
     provide(DOM);
 
