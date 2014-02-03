@@ -5,3 +5,8 @@
     text-indent: -10000px;
     box-shadow: inset 0 1px 4px #333;
 }
+
+.grid_cheat .cell_state_mine {
+    background-color: #ff0000;
+}
+

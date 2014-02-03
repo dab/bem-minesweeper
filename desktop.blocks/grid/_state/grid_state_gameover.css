@@ -3,7 +3,7 @@
 }
 .grid_state_gameover:before {
     color: #8b0000;
-    content: 'Ты подорвался. Увы.';
+    content: 'Big bang! You loose.';
     position: absolute;
     top: 20px;
     left: 60px;

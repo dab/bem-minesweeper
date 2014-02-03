@@ -15,3 +15,7 @@
 .grid_cheat .cell_che {
     background-color: #3abcff;
 }
+
+.grid_state_gameover .cell_che {
+    background-color: #ff0000;
+}
