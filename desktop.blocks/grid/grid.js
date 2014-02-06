@@ -18,7 +18,7 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML', 'events__channels'], function
                     var channel = channels(CHANNEL_NAME);
                     var cellsClosed = 0;
 
-                    this.cells = DOM.blocks.cell;
+                    this.cells = this.findBlocksInside('cell');
 
                     channel.on(CHANNEL_EVENT_RESET, {}, function () {
                         this.resetGrid();
