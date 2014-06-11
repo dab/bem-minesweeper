@@ -1,11 +1,12 @@
-modules.define('i-bem__dom', ['jquery', 'BEMHTML', 'events__channels'], function(provide, $, BEMHTML, channels, DOM) {
+modules.define('grid', ['i-bem__dom', 'BEMHTML', 'events__channels'],
+    function(provide, BEMDOM, BEMHTML, channels) {
 
-    var CHANNEL_NAME = 'cells';
-    var CHANNEL_EVENT_RESET = 'reset';
-    var CHANNEL_EVENT_CHEAT = 'cheat';
-    var CHANNEL_EVENT_VALIDATE = 'validate';
+        var CHANNEL_NAME = 'cells';
+        var CHANNEL_EVENT_RESET = 'reset';
+        var CHANNEL_EVENT_CHEAT = 'cheat';
+        var CHANNEL_EVENT_VALIDATE = 'validate';
 
-    DOM.decl('grid', {
+    provide(BEMDOM.decl(this.name, {
         onSetMod: {
             'js': {
                 'inited': function() {
@@ -31,7 +32,10 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML', 'events__channels'], function
                     channel.on(CHANNEL_EVENT_VALIDATE, {}, function () {
                         var markedCorrectMines = 0;
                         this.cells.forEach(function(cell) {
-                            if ((cell.hasMod('state', 'maybe')) && cell.params.mine ) markedCorrectMines++;
+                            if ((cell.hasMod('state', 'maybe')) && cell.params.mine )  {
+                                console.log('Not valid');
+                                markedCorrectMines++;
+                            }
                         });
                         if ((markedCorrectMines === this.params.totalMines) ) this.setMod('state', 'won');
                     }, this);
@@ -43,7 +47,7 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML', 'events__channels'], function
                         cell.params.mine && cell.setMod('state', 'mine');
                     });
                 }
-            },
+            }
 
         },
         buildWorld: function() {
@@ -105,22 +109,18 @@ modules.define('i-bem__dom', ['jquery', 'BEMHTML', 'events__channels'], function
                 index++;
             });
             // appending our gameField object to DOM
-            DOM.append(
+            BEMDOM.append(
                 this.domElem,
                 BEMHTML.apply(gameField)
             );
         },
         resetGrid: function() {
                 var isCheatReady =  this.hasMod('cheat');
-                DOM.replace(this.domElem, BEMHTML.apply( {
+                BEMDOM.replace(this.domElem, BEMHTML.apply( {
                     block: 'grid',
                     js: this.params,
                     mods: { cheat: isCheatReady }
                 }));
             }
-    }, {
-
-    });
-
-    provide(DOM);
+    }));
 });

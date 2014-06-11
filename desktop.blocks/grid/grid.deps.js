@@ -7,7 +7,8 @@
                 elems: ['line'],
             },
             { mods: { state: ['gaming', 'intro', 'gameover', 'won'] } },
-            { block: 'i-bem', elem: 'dom' }
+            { block: 'i-bem', elem: 'dom' },
+            {block: 'events', elem: 'channels'}
         ]
     },
     {

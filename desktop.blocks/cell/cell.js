@@ -1,6 +1,6 @@
-modules.define('i-bem__dom', ['jquery'], function (provide, jquery, DOM) {
+modules.define('cell', ['i-bem__dom'], function (provide, BEMDOM) {
 
-    DOM.decl('cell',
+    provide(BEMDOM.decl(this.name,
         {
             onSetMod: {
                 'js': {
@@ -73,9 +73,6 @@ modules.define('i-bem__dom', ['jquery'], function (provide, jquery, DOM) {
                 }
             }
         },
-        {});
-
-
-    provide(DOM);
+        {}));
 
 });
